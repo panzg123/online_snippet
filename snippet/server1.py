@@ -8,10 +8,16 @@ import utils
 
 
 class MainHandler(tornado.web.RequestHandler):
+    @coroutine
     def get(self):
-        self.write("Hello, world")
-
+        code_list = yield self.application.db.return_index_code()
+        if code_list:
+            self.render('list.html',code_list=code_list)
+        else:
+            self.write('hello world')
 class PostHandler(tornado.web.RequestHandler):
+    """发布新的代码"""
+    @coroutine
     def get(self):
 		self.write('''
 		    <form method="post">
@@ -32,6 +38,7 @@ class PostHandler(tornado.web.RequestHandler):
         # self.finish()
 
 class QueryHandler(tornado.web.RequestHandler):
+    """查询显示发布的代码"""
     @coroutine
     def get(self):
         snippet_id = self.get_argument('id')

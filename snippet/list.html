@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代码片段分享服务</title>
+</head>
+<body>
+<a href="/post">点击发布新的消息</a>
+<h1>共有{{ len(code_list) }}段代码</h1>
+<ul>
+    {% for code in code_list %}
+    <li>
+        <p>{{ code["title"] }}</p>
+        <p>{{ code["content"] }}</p>
+    </li>
+    {% end for %}
+</ul>
+</body>
+</html>
